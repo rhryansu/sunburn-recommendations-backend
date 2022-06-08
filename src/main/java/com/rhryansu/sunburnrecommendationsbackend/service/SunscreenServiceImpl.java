@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 @Service
@@ -26,7 +27,7 @@ public class SunscreenServiceImpl implements SunscreenService{
 
     @Override
     public Sunscreen getSunscreenById(int id) {
-        return sunscreenRepository.getReferenceById(id);
+        return sunscreenRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -46,8 +47,8 @@ public class SunscreenServiceImpl implements SunscreenService{
 
     @Override
     public void updateSunscreenById(int id, Sunscreen s) {
-        Sunscreen sunscreen = sunscreenRepository.getReferenceById(id);
-        sunscreen.setName(s.getName());
+        Sunscreen sunscreen = sunscreenRepository.findById(id).orElse(null);
+        Objects.requireNonNull(sunscreen).setName(s.getName());
         sunscreen.setPrice(s.getPrice());
         sunscreen.setSpf(s.getSpf());
         sunscreen.setDescription(s.getDescription());

@@ -1,7 +1,7 @@
 FROM arm64v8/maven:3.8.4
 COPY src /home/app/src
 COPY pom.xml /home/app
-RUN mvn -f /home/app/pom.xml clean package
+RUN mvn -fX /home/app/pom.xml clean package
 
 
 FROM arm64v8/openjdk:11

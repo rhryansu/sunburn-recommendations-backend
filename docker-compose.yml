@@ -1,20 +1,5 @@
 version: '3'
 services:
-  logic-server:
-    container_name: sunburn-recommendations-backend
-    build:
-      context: "."
-      dockerfile: Dockerfile
-    depends_on:
-      - sql-server
-    ports:
-      - "8080:8080"
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://sunburn-recommendations-sql:3306/sunburnrecommendations
-      SPRING_DATASOURCE_USERNAME: "root"
-      SPRING_DATASOURCE_PASSWORD: "root"
-    networks:
-      - sunburn
   sql-server:
       container_name: sunburn-recommendations-sql
       image: arm64v8/mysql:8.0
@@ -26,6 +11,21 @@ services:
         - MYSQL_DATABASE=sunburnrecommendations
       networks:
         - sunburn
+  logic-server:
+      container_name: sunburn-recommendations-backend
+      build:
+        context: "."
+        dockerfile: Dockerfile
+      depends_on:
+        - sql-server
+      ports:
+        - "8080:8080"
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:mysql://sunburn-recommendations-sql:3306/sunburnrecommendations
+        SPRING_DATASOURCE_USERNAME: "root"
+        SPRING_DATASOURCE_PASSWORD: "root"
+      networks:
+      - sunburn
 networks:
   sunburn:
     driver: bridge

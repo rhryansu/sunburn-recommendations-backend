@@ -5,6 +5,7 @@ services:
       image: arm64v8/mysql:8.0
       ports:
         - "3306:3306"
+      restart: on-failure
       environment:
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=sunburnrecommendations

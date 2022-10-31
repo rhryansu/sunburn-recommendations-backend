@@ -3,6 +3,7 @@ package com.rhryansu.sunburnrecommendationsbackend.controller;
 import com.rhryansu.sunburnrecommendationsbackend.model.Sunscreen;
 import com.rhryansu.sunburnrecommendationsbackend.service.SunscreenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,7 +19,7 @@ public class SunscreenController {
     @PostMapping(value = "/add")
     public String add(@RequestBody Sunscreen sunscreen) {
         sunscreenService.saveSunscreen(sunscreen);
-        return "New Sunscreen Added.";
+        return "Add Success.";
     }
 
     @GetMapping(value = "/getAll")
@@ -34,12 +35,12 @@ public class SunscreenController {
     @PutMapping(value = "/edit")
     public String updateSunscreenById(@RequestBody Sunscreen sunscreen) {
         sunscreenService.updateSunscreenById(sunscreen.getId(), sunscreen);
-        return "Update Success.";
+        return "{\"Update Success.\"}";
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public String deleteSunscreenById(@PathVariable int id) {
+    @DeleteMapping(value = "/delete/{id}", produces = "application/json")
+    public ResponseEntity<?> deleteSunscreenById(@PathVariable int id) {
         sunscreenService.deleteSunscreenById(id);
-        return "Delete Success.";
+        return ResponseEntity.ok("Delete Success.");
     }
 }

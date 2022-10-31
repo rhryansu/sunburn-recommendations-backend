@@ -4,9 +4,8 @@ services:
       container_name: sunburn-recommendations-sql
       image: arm64v8/mysql:8.0
       ports:
-        - "3307:3306"
+        - "3306:3306"
       environment:
-        - MYSQL_PASSWORD=root
         - MYSQL_ROOT_PASSWORD=root
         - MYSQL_DATABASE=sunburnrecommendations
       networks:
